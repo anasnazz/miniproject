@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Prediction', 'About us', 'Contact us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
@@ -38,7 +38,6 @@ function Navbar() {
   return (
     <AppBar 
         position="static"
-        color="secondary"
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
