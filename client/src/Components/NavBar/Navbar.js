@@ -1,159 +1,159 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import logo from "../../assets/logo.png";
+import AnimatedList from "../Animations/AnimatedList/AnimatedList";
 
-const pages = ['Prediction', 'About us', 'Contact us'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Prediction", "About us", "Contact us"];
+const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10'];
 
 function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
+  const handleCloseMenu = () => setAnchorEl(null);
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // Open & close dialog
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
 
   return (
-    <AppBar 
+    <>
+      <AppBar
         position="static"
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Poppins',
-            //   fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Fake News Detection
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'Poppins',
-              fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Fake News Detection
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+        sx={{
+          backgroundColor: "rgba(18, 114, 211, 0.8)",
+          borderRadius: "35px",
+          width: "auto",
+          padding: 1,
+          mx: 2,
+          mt: 2,
+          boxSizing: "border-box",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            {/* Logo and Title */}
+            <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  height: "50px",
+                  width: "50px",
+                  marginRight: "10px",
+                }}
+              />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  fontSize: "1.4rem",
+                  fontFamily: "Poppins",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+                Fake News Detection
+              </Typography>
+            </Box>
+
+            {/* Mobile Menu (Hamburger) */}
+            {isMobile ? (
+              <>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  color="inherit"
+                  onClick={handleOpenMenu}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleCloseMenu}
+                  sx={{ mt: 1 }}
+                >
+                  {pages.map((page) => (
+                    <MenuItem
+                      key={page}
+                      onClick={() => {
+                        handleCloseMenu();
+                        if (page === "Prediction") handleOpenDialog();
+                      }}
+                    >
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            ) : (
+              /* Desktop Navigation */
+              <Box sx={{ display: "flex", gap: 2 }}>
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={
+                      page === "Prediction" ? handleOpenDialog : undefined
+                    }
+                    href={
+                      page !== "Prediction"
+                        ? `${page.toLowerCase().replace(" ", "-")}`
+                        : undefined
+                    }
+                    sx={{
+                      my: 2,
+                      color: "white",
+                    }}
+                    aria-label={page}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+
+      {/* Prediction Dialog Box */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Predictions History</DialogTitle>
+        <DialogContent>
+          <AnimatedList
+            items={items}
+            onItemSelect={(item, index) => console.log(item, index)}
+            showGradients={false}
+            enableArrowNavigation={true}
+            displayScrollbar={true}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
+
 export default Navbar;

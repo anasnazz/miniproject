@@ -1,10 +1,9 @@
 import './App.css';
-import Navbar from './Components/NavBar/Navbar';
-import Home from './Pages/Home/Home';
+import RoutesComp from './Routes';
 
 function App() {
   return (
-    <Home/>
+    <RoutesComp/>
   );
 }
 
