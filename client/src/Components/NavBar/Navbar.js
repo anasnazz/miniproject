@@ -21,7 +21,6 @@ import logo from "../../assets/logo.png";
 import AnimatedList from "../Animations/AnimatedList/AnimatedList";
 
 const pages = ["Prediction", "About us", "Contact us"];
-const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10'];
 
 function Navbar() {
   const theme = useTheme();
@@ -34,8 +33,40 @@ function Navbar() {
   const handleCloseMenu = () => setAnchorEl(null);
 
   // Open & close dialog
-  const handleOpenDialog = () => setOpenDialog(true);
+  // const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
+
+  const [historyItems, setHistoryItems] = React.useState([]);
+
+  const fetchHistory = () => {
+    const storedData = localStorage.getItem("newsHistory");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      setHistoryItems(
+        parsedData.map((entry) => `${entry.text} - ${entry.result}`)
+      );
+    }
+  };
+
+  React.useEffect(() => {
+    fetchHistory();
+
+    const handleStorageChange = (event) => {
+      if (event.key === "newsHistory") {
+        fetchHistory();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  const handleOpenDialog = () => {
+    fetchHistory();
+    setOpenDialog(true);
+  };
 
   return (
     <>
@@ -144,7 +175,7 @@ function Navbar() {
         <DialogTitle>Predictions History</DialogTitle>
         <DialogContent>
           <AnimatedList
-            items={items}
+            items={historyItems} // Use fetched data
             onItemSelect={(item, index) => console.log(item, index)}
             showGradients={false}
             enableArrowNavigation={true}

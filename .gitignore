@@ -1,1 +1,4 @@
 .git_old
+node_modules
+server_old
+server/sample.py
